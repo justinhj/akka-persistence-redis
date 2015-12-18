@@ -36,7 +36,7 @@ class RedisJournal extends SyncWriteJournal with ActorLogging with DefaultRedisC
 
     val transaction = redis.transaction()
 
-    messages.map { pr =>
+    messages.foreach { pr =>
       toBytes(pr) match {
         case Success(serialized) =>
           val journal = Journal(pr.sequenceNr, serialized, pr.deleted)
